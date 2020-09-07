@@ -1,0 +1,6 @@
+,Child,Teen,Young Adult,Middle-aged Adult,Old
+Child,0.84,0.003,0.0,0.101,0.01
+Teen,0.027,0.58,0.277,0.046,0.191
+Young Adult,0.009,0.123,0.7,0.001,0.008
+Middle-aged Adult,0.08,0.02,0.0,0.53,0.18
+Old,0.043,0.274,0.023,0.321,0.611
