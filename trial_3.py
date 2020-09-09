@@ -54,7 +54,7 @@ def mae(y_true, y_pred):
     # true_age = K.sum(y_true * K.arange(0, 101, dtype="float32"), axis=-1)
     # pred_age = K.sum(y_pred * K.arange(0, 101, dtype="float32"), axis=-1)
     # mae = K.mean(K.abs(true_age - pred_age))
-    return K.mean(K.abs(y_pred - y_true)) / K.mean(K.abs(y_true)) * 10
+    return K.mean(K.abs(y_pred - y_true)) / K.mean(K.abs(y_true)) * 100
     #mae = tf.keras.losses.MeanAbsoluteError()
     #mae = mae/3
 
@@ -149,16 +149,34 @@ def load_layer_data(layer_name):
 
     return (images, labels)
 
+def duplicate_teen_data(loaded_data):
+
+    feature_set = loaded_data[0]
+    label_set = np.ndarray.tolist(loaded_data[1])
+    count = 0
+
+    for i,label in tqdm(enumerate(label_set), desc = "Augmenting set"):
+        if (label >= 12 and label < 20):
+            feature_set = np.concatenate((feature_set, feature_set[i].reshape(1,feature_set[0].shape[0],feature_set[0].shape[1],feature_set[0].shape[2])))
+            label_set.append(label)
+            print(i)
+            count += 1
+    print(count)
+    return (feature_set, np.array(label_set))
 pdb.set_trace()
 
 # Extracting the labels and data
 
 layer_name = "add_98"
 
+random.seed(30)
+
 loaded_data = load_layer_data(layer_name)
-feature_set = loaded_data[0]
-label_set = loaded_data[1]
 pdb.set_trace()
+
+feature_set, label_set = duplicate_teen_data(loaded_data)
+
+
 X = feature_set[0:int(np.round(feature_set.shape[0]*0.8))]
 Y = label_set[0:int(np.round(feature_set.shape[0]*0.8))]
 pdb.set_trace()
