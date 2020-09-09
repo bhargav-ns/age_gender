@@ -153,9 +153,10 @@ def duplicate_teen_data(loaded_data):
 
     feature_set = loaded_data[0]
     label_set = np.ndarray.tolist(loaded_data[1])
+    iter_set = label_set
     count = 0
 
-    for i,label in tqdm(enumerate(label_set), desc = "Augmenting set"):
+    for i,label in tqdm(enumerate(iter_set), desc = "Augmenting set"):
         if (label >= 12 and label < 20):
             feature_set = np.concatenate((feature_set, feature_set[i].reshape(1,feature_set[0].shape[0],feature_set[0].shape[1],feature_set[0].shape[2])))
             label_set.append(label)
